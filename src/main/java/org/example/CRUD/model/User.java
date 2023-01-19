@@ -14,29 +14,53 @@ public class User {
     private int id;
 
     @Column
-    private String firstName;
+    private String name;
 
     @Column
     private String lastName;
 
     @Column
     private int age;
+    @Column
+    private String email;
+    @Column
+    private String password;
+    @Column
+    private String role;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, int age) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
+    public String getEmail() {
+        return email;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLastName() {
@@ -64,25 +88,45 @@ public class User {
     }
 
     @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         User user = (User) o;
-        return age == user.age && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName);
+
+        if (getId() != user.getId()) return false;
+        if (getAge() != user.getAge()) return false;
+        if (getName() != null ? !getName().equals(user.getName()) : user.getName() != null) return false;
+        if (getLastName() != null ? !getLastName().equals(user.getLastName()) : user.getLastName() != null)
+            return false;
+        if (getEmail() != null ? !getEmail().equals(user.getEmail()) : user.getEmail() != null) return false;
+        if (getPassword() != null ? !getPassword().equals(user.getPassword()) : user.getPassword() != null)
+            return false;
+        return getRole() != null ? getRole().equals(user.getRole()) : user.getRole() == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, age);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                '}';
+        int result = getId();
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
+        result = 31 * result + getAge();
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
+        result = 31 * result + (getRole() != null ? getRole().hashCode() : 0);
+        return result;
     }
 }

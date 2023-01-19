@@ -33,7 +33,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void updateUser(int id, User user) {
         User userToBeUpdate = showUser(id);
-        userToBeUpdate.setFirstName(user.getFirstName());
+        userToBeUpdate.setName(user.getName());
         userToBeUpdate.setLastName(user.getLastName());
         userToBeUpdate.setAge(user.getAge());
         entityManager.merge(userToBeUpdate);

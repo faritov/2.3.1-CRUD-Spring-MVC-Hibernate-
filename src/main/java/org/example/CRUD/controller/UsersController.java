@@ -1,5 +1,6 @@
 package org.example.CRUD.controller;
 
+import org.example.CRUD.service.UserService;
 import org.example.CRUD.service.UserServiceImpl;
 import org.example.CRUD.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UsersController {
 
-    public final UserServiceImpl service;
+    public final UserService service;
 
-    @Autowired
-    public UsersController(UserServiceImpl service) {
+    public UsersController(UserService service) {
         this.service = service;
     }
 
@@ -44,7 +44,7 @@ public class UsersController {
     }
 
     @GetMapping("/{id}/edit")
-    public String getViewForUpdateUser(Model model, @PathVariable("id") int id) {
+    public String getViewForUpdateUser(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", service.showUser(id));
         return "/views/edit";
     }
